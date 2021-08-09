@@ -4,7 +4,7 @@ window.onload = function() {
     function onGot(textfile)
     {
         const tumtum = document.getElementById("output")
-        var pie = textfile.textfile.split("\n")
+        var pie = textfile.split("\n")
         //console.log(pie)
         for(var i = 0; i < pie.length; i++)
         {
@@ -39,14 +39,16 @@ window.onload = function() {
     }
     function whyJS(whyyy)
     {
-        why = whyyy
+        why = whyyy[0].textfile + whyyy[1].tabs
         onGot(why)
     }
     function updateColor(xd)
     {
         newColor = xd.color
-        let textfile = browser.storage.sync.get("textfile")
-        textfile.then(whyJS, error)
+        Promise.all([
+            browser.storage.sync.get("textfile"),
+            browser.storage.sync.get("tabs")
+        ]).then(whyJS, error)
     }
 
     let color = browser.storage.sync.get("color")

@@ -1,8 +1,9 @@
 body {
   text-align: center;
   line-height: 2;
-  min-width: 300px;
+  min-width: 400px;
   font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
 }
 h1 {
     text-align: center;
@@ -34,4 +35,11 @@ p {
 .colorPicker {
   display: block;
   margin-top: 5px;
+}
+
+#storeTabs, #clearTabs{
+  width: 150px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
