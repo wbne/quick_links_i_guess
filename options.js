@@ -1,12 +1,10 @@
 let textState;
-let tabState = ""
 
 function saveOptions(e) {
   e.preventDefault();
   //console.log(document.getElementsByClassName("colorPicker")[0].value)
   browser.storage.sync.set({
     textfile: document.querySelector("#owo").value,
-    tabs: tabState,
     color: document.getElementsByClassName("colorPicker")[0].value
   });
 }
@@ -14,7 +12,7 @@ function saveOptions(e) {
 function restoreOptions() {
   function setCurrentText(result) {
     textState = result.textfile
-    document.querySelector("#owo").value = result.textfile || "owo"
+    document.querySelector("#owo").value = result.textfile || ""
   }
 
   function setColor(result) {
@@ -35,14 +33,15 @@ function saveAllTabs() {
   function logTabs(tabs) {
     let tabString = "\nBREAKROW\n"
     for (let tab of tabs) {
+      console.log(tab)
       if(tab.url !== "about:addons") {
-        tabString += tab.title.replaceAll(" ", "_").substring(0, 25)
+        tabString += tab.title.replace(/ /g, "_").substring(0, 25)
         tabString += " "
         tabString += tab.url
         tabString += "\n"
       }
     }
-    tabState = tabString
+    let tabState = tabString
     browser.storage.sync.set({
       tabs: tabState
     });
@@ -59,4 +58,4 @@ function saveAllTabs() {
 document.addEventListener("DOMContentLoaded", restoreOptions);
 document.querySelector("body").addEventListener("submit", saveOptions);
 document.getElementById("storeTabs").addEventListener("click", saveAllTabs)
-document.getElementById("clearTabs").addEventListener("click", function(){browser.storage.sync.set({tabs: tabState});})
+document.getElementById("clearTabs").addEventListener("click", function(){browser.storage.sync.set({tabs: ""});})
